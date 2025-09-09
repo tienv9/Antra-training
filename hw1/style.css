@@ -1,0 +1,77 @@
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: sans-serif;
+}
+
+.signup-title {
+    text-align: center;
+    margin: auto;
+}
+
+.container {
+    padding: 20px;
+    border-radius: 12px;
+}
+.container input::placeholder {
+    font-weight: bold;
+}
+
+.container input[type="text"],
+.container input[type="number"],
+.container input[type="email"],
+.container input[type="password"],
+.container input[type="button"] {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px;
+    margin: 6px 0;
+    border: 1px solid #cccccc;
+    border-radius: 6px;
+}
+
+.container input[type="text"]:focus,
+.container input[type="number"]:focus,
+.container input[type="email"]:focus,
+.container input[type="password"]:focus {
+    border-color: #007BFF;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); 
+}
+
+.same-row {
+  display: flex;
+  gap: 3%;
+}
+
+.register-button {
+    font-weight: bold;
+    background: #007BFF;
+    color: white;
+}
+
+.signin-button {
+    font-weight: bold;
+    background: #59eb15;
+    color: white;
+}
+
+.checkbox-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+}
+
+.mini-register {
+    display: inline-block;
+    padding: 2px 8px;
+    background-color: #007BFF;
+    font-size: 0.8em;
+    color: white;
+    border-radius: 6px;
+}
+
