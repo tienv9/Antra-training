@@ -1,0 +1,74 @@
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    font-family: sans-serif;
+}
+
+.title {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.container {
+    display: flex;
+    gap: 300px;
+}
+
+.box {
+    /* This size make no sense if follow the requirement */
+    height: 600px; 
+    width: 400px;
+    border: 2px solid black;
+    padding: 0;
+    margin: 0;
+    overflow-y: auto;
+}
+
+.box-title {
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    border-bottom: 2px solid black;
+    margin: 0;
+    padding: 10px;
+    background: #f9f9f9; /* make it standout a little */
+}
+
+.course {
+    /* make even less sense to change to 300x200 here */
+    padding: 10px;
+    border-bottom: 1px solid black;
+    text-align: center;
+    background: white;
+}
+
+.course.highlight {
+    background: rgb(221, 239, 221);
+}
+
+.course.selected {
+    background-color: deepskyblue !important;
+    color: white;
+    font-weight: bold;
+}
+
+.footer {
+    margin: 20px;
+    font-size: 18px;
+}
+
+.select-btn {
+    margin-left: 10px;
+    padding: 5px 15px;
+    font-size: 14px;
+    border: 1px solid black;
+}
+
+.select-btn:hover {
+    background: #e0e0e0;
+}
