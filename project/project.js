@@ -3,7 +3,7 @@
 // View: User interface
 // Controller:
 
-
+// View - handle UI element
 const View = (() => {
     const dom = {
         container_available: document.querySelector("#course_container_available"),
@@ -48,6 +48,7 @@ const View = (() => {
 
 })();
 
+// Model - handle data
 const Model = ((view) => {
 
     // fetch from api 
@@ -66,6 +67,8 @@ const Model = ((view) => {
     };
 })(View);
 
+
+// Controller - handle logic and event 
 const Controller = ((model, view) => {
     const { dom, createTempCourse, render, updateFooter, setSelectButtonState } = view;
 
@@ -82,8 +85,13 @@ const Controller = ((model, view) => {
     };
 
     const handleSelectButton = () => {
-        const selectedCourses = dom.container_available.querySelectorAll(".course.selected");
+        const totalCredits = calculateTotalCredits();
+        //alert 
+        const confirmSubmit = confirm(`You have chosen ${totalCredits} credits for this semester. You cannot change once you submit. Do you want to confirm?`);
+        if (!confirmSubmit) return;
 
+        // move course if confirm
+        const selectedCourses = dom.container_available.querySelectorAll(".course.selected");
         // move selected course to container_selected
         selectedCourses.forEach(course => {
             course.classList.remove("selected");
