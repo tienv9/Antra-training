@@ -73,6 +73,24 @@ const Controller = ((model, view) => {
         const totalCredits = calculateTotalCredits();
         const footer = document.querySelector("#current_credit");
         footer.innerHTML = `Total Credit: ${totalCredits} <button class="select-btn">Select</button>`;
+
+        //click event for footer button
+        const selectBtn = footer.querySelector(".select-btn");
+        selectBtn.addEventListener("click", handleSelectButton);
+    };
+
+    const handleSelectButton = () => {
+        const selectedCourses = document.querySelectorAll(".course.selected");
+
+        // move selected course to container_selected
+        selectedCourses.forEach(course => {
+            course.classList.remove("selected");
+            dom.container_selected.appendChild(course);
+        });
+
+        // disable the footer button after transfer
+        const footerBtn = document.querySelector(".select-btn");
+        footerBtn.disabled = true;
     };
 
     const init = async () => {
