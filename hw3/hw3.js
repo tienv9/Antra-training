@@ -441,8 +441,8 @@ function longestPalindrome(s) {
 }
 
 
-console.log(longestPalindrome("bananas"));
-console.log(longestPalindrome("abracadabra"));
+// console.log(longestPalindrome("bananas"));
+// console.log(longestPalindrome("abracadabra"));
 
 //28
 function goodbye() {
