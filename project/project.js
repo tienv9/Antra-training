@@ -31,7 +31,7 @@ const View = (() => {
     };
 
     const updateFooter = (totalCredits) => {
-        dom.footer.innerHTML = `Total Credit: ${totalCredits} <button class="select-btn">Select</button>`;
+        dom.footer.firstChild.textContent = `Total Credit: ${totalCredits} `;
     };
 
     const setSelectButtonState = (enabled) => {
