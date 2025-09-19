@@ -18,9 +18,9 @@ const View = (() => {
         // if course is a requirement, use highlight class instead and change type to Compulsory
         dataList.forEach((course) => {
             if(course.required == true) {
-                template +=`<li class="course highlight" data-id="${course.courseId}">${course.courseName} <br>Course Type : Compulsory <br>Course Credit : ${course.credit}`;
+                template +=`<li class="course highlight"">${course.courseName} <br>Course Type : Compulsory <br>Course Credit : ${course.credit}`;
             } else {
-                template +=`<li class="course" data-id="${course.courseId}">${course.courseName} <br>Course Type : Elective <br>Course Credit : ${course.credit}`;
+                template +=`<li class="course"">${course.courseName} <br>Course Type : Elective <br>Course Credit : ${course.credit}`;
             }
         });
         return template;
@@ -71,6 +71,7 @@ const Model = ((view) => {
 // Controller - handle logic and event 
 const Controller = ((model, view) => {
     const { dom, createTempCourse, render, updateFooter, setSelectButtonState } = view;
+    let button_state = true;
 
     const calculateTotalCredits = () => {
         let selectedCredit = 0;
@@ -100,9 +101,14 @@ const Controller = ((model, view) => {
 
         // disable the footer button after transfer
         setSelectButtonState(false);
+        button_state = false;
     };
 
     const handleCourseClick = (event) => { 
+        if(button_state == false) { //disable selection if button is disable
+            return;
+        }
+        
         const currentTarget = event.target;
         const currentTargetCredit = parseInt(currentTarget.innerHTML.split("Course Credit : ")[1]);
         const totalCredits = calculateTotalCredits();
