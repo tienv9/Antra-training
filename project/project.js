@@ -56,6 +56,7 @@ const Model = ((view) => {
 
 const Controller = ((model, view) => {
     const { dom, createTempCourse, render } = view;
+    let max_credit = 18;
 
     const init = async () => {
         // get course list from API
@@ -68,7 +69,29 @@ const Controller = ((model, view) => {
         dom.container_available.addEventListener("click", (ck) => {
             ck.target.classList.toggle("selected");
 
-        })
+            // check total credits and untoggle if over 18
+            if (!updateCreditCounter()) {
+                alert("Warning: Total credits cannot exceed 18!");
+                ck.target.classList.remove("selected");
+            }
+
+        });
+
+        const updateCreditCounter = () => {
+            let selectedCredit = 0;
+            //select all course class with selected toggled
+            const selectedCourses = document.querySelectorAll(".course.selected");
+            selectedCourses.forEach(courses => {
+                // get credit from innerHTML of selected course
+                selectedCredit += parseInt(courses.innerHTML.split("Course Credit : ")[1]);
+            });
+
+            // update footer with the new credit count
+            const footer = document.querySelector("#current_credit");
+            footer.innerHTML = `Total Credit: ${selectedCredit} <button class="select-btn">Select</button>`;
+
+            return selectedCredit < max_credit;
+        };
 
 
     };
