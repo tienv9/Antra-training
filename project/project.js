@@ -56,7 +56,24 @@ const Model = ((view) => {
 
 const Controller = ((model, view) => {
     const { dom, createTempCourse, render } = view;
-    let max_credit = 18;
+
+    const calculateTotalCredits = () => {
+        let selectedCredit = 0;
+        //select all course class with selected toggled
+        const selectedCourses = document.querySelectorAll(".course.selected");
+
+        selectedCourses.forEach(course => {
+            const creditText = course.innerHTML.split("Course Credit : ")[1];
+            selectedCredit += parseInt(creditText);
+        });
+        return selectedCredit;
+    };
+
+    const updateFooter = () => {
+        const totalCredits = calculateTotalCredits();
+        const footer = document.querySelector("#current_credit");
+        footer.innerHTML = `Total Credit: ${totalCredits} <button class="select-btn">Select</button>`;
+    };
 
     const init = async () => {
         // get course list from API
@@ -65,41 +82,29 @@ const Controller = ((model, view) => {
         // render available courses
         render(dom.container_available, createTempCourse(courses));
 
-        //basic select
+        // select items on list with click 
         dom.container_available.addEventListener("click", (ck) => {
-            ck.target.classList.toggle("selected");
+            const currentTarget = ck.target;
+            const currentTargetCredit = parseInt(currentTarget.innerHTML.split("Course Credit : ")[1]);
+            const totalCredits = calculateTotalCredits();
 
-            // check total credits and untoggle if over 18
-            if (!updateCreditCounter()) {
-                alert("Warning: Total credits cannot exceed 18!");
-                ck.target.classList.remove("selected");
+            // prevent selection if it exceeds 18 credits
+            // also need to check selected since it would cause alert to deselect courses if add to 18
+            if (!currentTarget.classList.contains("selected") && (totalCredits + currentTargetCredit) > 18) {
+                alert("You have exceeded the maximum credit limit of 18. Please deselect some courses.");
+                return;
             }
 
+            // toggle selected if under 18 credits
+            currentTarget.classList.toggle("selected");
+            updateFooter();
         });
 
-        const updateCreditCounter = () => {
-            let selectedCredit = 0;
-            //select all course class with selected toggled
-            const selectedCourses = document.querySelectorAll(".course.selected");
-            selectedCourses.forEach(courses => {
-                // get credit from innerHTML of selected course
-                selectedCredit += parseInt(courses.innerHTML.split("Course Credit : ")[1]);
-            });
-
-            // update footer with the new credit count
-            const footer = document.querySelector("#current_credit");
-            footer.innerHTML = `Total Credit: ${selectedCredit} <button class="select-btn">Select</button>`;
-
-            return selectedCredit < max_credit;
-        };
-
-
+        // update footer
+        updateFooter();
     };
 
-    return {
-        init
-    };
-    
+    return { init };
 })(Model, View);
 
 Controller.init();
