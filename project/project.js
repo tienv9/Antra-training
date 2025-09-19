@@ -16,9 +16,9 @@ const View = (() => {
         // if course is a requirement, use highlight class instead and change type to Compulsory
         dataList.forEach((course) => {
             if(course.required == true) {
-                template +=`<li class="course highlight">${course.courseName} <br>Course Type : Compulsory <br>Course Credit : ${course.credit}`;
+                template +=`<li class="course highlight" data-id="${course.courseId}">${course.courseName} <br>Course Type : Compulsory <br>Course Credit : ${course.credit}`;
             } else {
-                template +=`<li class="course">${course.courseName} <br>Course Type : Elective <br>Course Credit : ${course.credit}`;
+                template +=`<li class="course" data-id="${course.courseId}">${course.courseName} <br>Course Type : Elective <br>Course Credit : ${course.credit}`;
             }
         });
         return template;
@@ -63,7 +63,14 @@ const Controller = ((model, view) => {
 
         // render available courses
         render(dom.container_available, createTempCourse(courses));
-        
+
+        //basic select
+        dom.container_available.addEventListener("click", (ck) => {
+            ck.target.classList.toggle("selected");
+
+        })
+
+
     };
 
     return {

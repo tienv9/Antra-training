@@ -59,7 +59,6 @@ body {
 .course.selected {
     background-color: deepskyblue !important;
     color: white;
-    font-weight: bold;
 }
 
 .footer {
